@@ -1,0 +1,194 @@
+26.	Create an array of 17 elements in 5 rows.  And calculate sum of all elements.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        
+        System.out.println("....2-D Array....");
+        System.out.println("Enter Number of Rows : ");
+        int r = s.nextInt();
+        int arr[][] = new int[r][];
+        for(int i=0; i<arr.length; i++)   {
+            System.out.println("Enter " + i +" rowth Columns : ");    
+            int c = s.nextInt();
+            arr[i] = new int[c];
+            for(int j=0; j<arr[i].length; j++)   {
+                System.out.println("Enter Number : ");
+                arr[i][j] = s.nextInt();
+            }
+        }
+        
+        int sum = 0;
+        for(int x[] : arr)    {
+            for(int y : x)  {
+                sum = sum + y;
+            }
+        }
+        System.out.println("Sum = " + sum);
+    }
+    
+}
+
+
+27.	Write a program to find the smallest and greatest number present in the array of integer type.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        
+        System.out.println("....2-D Array....");
+        System.out.println("Enter Number of Rows : ");
+        int r = s.nextInt();
+        int arr[][] = new int[r][];
+        for(int i=0; i<arr.length; i++)   {
+            System.out.println("Enter " + i +" rowth Columns : ");    
+            int c = s.nextInt();
+            arr[i] = new int[c];
+            for(int j=0; j<arr[i].length; j++)   {
+                System.out.println("Enter Number : ");
+                arr[i][j] = s.nextInt();
+            }
+        }
+        
+        int max = arr[0][0], min = arr[0][0];
+        for(int x[] : arr)    {
+            for(int y : x)  {
+                if(y > max)
+                    max = y;
+                
+                if(y < min)
+                    min = y;
+            }
+        }
+        System.out.println("Max Element in array = " + max + "\nMin Element in array = " + min);
+    }
+    
+}
+
+
+28.	Initialize one String type of array and print the elements using for each loop.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("....1-D Array....");
+        System.out.println("Enter Size of Array : ");
+        int n = s.nextInt();
+        String c[] = new String[n];
+        
+        for(int i=0; i<n; i++)  {
+            System.out.println("Enter String : ");
+            c[i] = s.next();
+        }            
+        System.out.println("Strings : ");
+        for(String x : c)
+            System.out.println(x);
+    }
+    
+}
+
+
+29.	Write a program to print the total number of one-D arrays in a two-D array and the number of elements in every one-D array present in the two-D arrays.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        
+        int a[][] = {{10, 20, 30}, {40, 20}, {70, 60, 50}};
+        int r=0;
+        for(int i=0; i<a.length; i++)    {
+            int c = 0;
+            r++;
+            for(int j=0; j<a[i].length; j++)   {
+                c++;
+            }
+            System.out.println("Row " + i + " Column : " + c);
+        }
+        System.out.println("Total Rows : " + r);
+    }
+    
+}
+
+
+30.	Create an integer type 2-D array of size [3X3]. Take the elements from the user and then calculate the sum of the elements present in the diagonal.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        int a[][] = new int[3][];
+        int sum = 0;
+        for(int i=0; i<a.length; i++)   {
+            a[i] = new int[3]; 
+            for(int j=0; j<a[i].length; j++)   {
+                System.out.println("Enter Number : ");
+                a[i][j] = s.nextInt();
+            }
+        }
+        
+        for(int i=0; i<a.length; i++)   {
+            for(int j=0; j<a[i].length; j++)   {
+                if((i+j) % 2 == 0)
+                    sum = sum + a[i][j];
+                    System.out.println(a[i][j]);        
+                
+            }
+        }
+        System.out.println("Sum of diagonal of Array : " + sum);
+    }
+    
+}
+
+
+
+
+31.	Create a class Student with 2 data members rno and name. Create one method setData() that takes roll number and student name as parameter 
+and stores them in data members rno and name. Create one more method showData() to print the data member values. Create another class( main class) 
+StudentDemo that creates Student class object and calls setData() and showData() methods.
+->
+import java.lang.*;
+import java.util.*;
+
+class Student {
+    int rollno;
+    String name;
+    
+    void setData(int rollno, String name)  {
+        this.rollno = rollno;
+        this.name = name;
+    }
+    
+    void showData() {
+        System.out.println("RollNo. : "+rollno+"\nName : "+name);
+    }
+} 
+
+public class Main {
+    public static void main(String args[]) {
+        Student s = new Student();
+        s.setData(10,"Rahul");
+        s.showData();
+    }
+    
+}
+
+
+
+32.	Modify the above program (no. 30) to count the no of Student objects created. [ In this program static variable is required ]
+->
+
+

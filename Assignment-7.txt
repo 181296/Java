@@ -1,0 +1,197 @@
+52.	Input name of a person and count how many vowels it contains.  Use String class functions. 
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the Name : ");
+        String name = s.nextLine();
+        name = name.toLowerCase();
+        int count = 0;
+        for(int i=0; i<name.length(); i++){
+            char ch = name.charAt(i);
+            if( (ch == 'a') || (ch == 'e') || (ch == 'i') || (ch == 'o') || (ch == 'u') )
+                count++;
+        }
+        System.out.println("Count of Vowel : "+count);
+	}
+}
+
+
+53.	Input data exactly in the following format, and print sum of all integer values. “67, 89, 23, 67, 12, 55, 66”.   
+(Hint use String class split method and Integer class parseInt method) .
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        String number = "67, 89, 23, 67, 12, 55, 66";
+        int sum=0;
+        String[] n = number.split(", ");
+        for(String x : n){
+            sum = sum + Integer.parseInt(x);
+        }
+        System.out.println("Sum = "+sum);
+	}
+}
+
+
+54.	Write a program to reverse the given String.
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter the String : ");
+        String a = S.nextLine();
+        String[] s = a.split(" ");
+        for(int i=s.length-1; i>-1; i--){
+            System.out.print(s[i]+" ");
+        }
+	}
+}
+
+
+
+55.	Write a program to count no of words in the String.
+->
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter the String : ");
+        String a = S.nextLine();
+        System.out.println("Number of Words = "+a.length());
+	}
+}
+
+
+56.	Write a program to convert very first character of every word in uppercase in a String.
+->
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class Main
+{
+    public static void main(String[] args) {
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter the String : ");
+        String a = S.nextLine();
+        String[] s = a.split(" ");
+        for(int i=0; i<s.length; i++){
+            for(int j=0; j<s[i].length(); j++){
+                if(j == 0){
+                    String ch = Character.toString(s[i].charAt(j));
+                    System.out.print(ch.toUpperCase());
+                }
+                else{
+                    char ch = s[i].charAt(j);
+                    System.out.print(ch);
+                }
+            }
+            System.out.print(" ");
+        }
+    }
+}
+
+
+
+57.	Write a program to reverse every word of the String.
+->
+import java.lang.*;
+import java.util.*;
+import java.io.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        String s = "I Love CDAC";
+        StringBuilder str = new StringBuilder();
+        str.append(s);
+        str = str.reverse();
+        System.out.println("Reverse string : "+str);
+	}
+}
+
+
+58.	Store name of weekdays in an array (starting from “Sunday” at 0 index). Ask day position from user and print day name. Handle array 
+index out of bound exception and give proper message if user enter day index outside range (0-6). 
+->
+import java.lang.*;
+import java.util.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner S = new Scanner(System.in);
+        String[] week = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"};
+        System.out.println("Enter Day Position : ");
+        int a = S.nextInt(); 
+        try{
+            System.out.println("Day : "+week[a]);
+        }
+	         
+	    catch(ArrayIndexOutOfBoundsException e){
+	        System.out.println("Wrong Number!!!.....");
+	    }         
+	    catch(Exception e){
+	        System.out.println("You Entered Wrong!!!....Number......");
+	    }
+    }
+}
+
+
+
+59.	Create a class Voter(voterId, name, age) with parameterized constructor.  The parameterized constructor should throw a checked exception
+if age is less than 18. The message of exception is “invalid age for voter ” 
+->
+import java.lang.*;
+import java.util.*;
+
+class Voter{
+    int voterId, age;
+    String name;
+    Voter(int voterId, String name, int age){
+        try{
+            if(age > 18){
+                this.age = age;
+                this.name = name;
+                this.voterId = voterId;
+            }
+        }
+	             
+	    catch(Exception e){
+	        System.out.println("Invalid age for Voter!!!....");
+	    }
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter VoterId : ");
+        int a = S.nextInt(); 
+        System.out.println("Enter Name : ");
+        S.nextLine();
+        String b = S.nextLine(); 
+        System.out.println("Enter Age : ");
+        int c = S.nextInt(); 
+        
+        Voter v = new Voter(a,b,c);
+    }
+}
+
