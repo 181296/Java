@@ -1,0 +1,349 @@
+60.	Create Interface StudentFee and declare following method.  getFee() throws 
+InvalidFeeException. This method ask fees from user and throws exception if user 
+enters invalid or negative fees Create class Student with members (name, fees) and 
+implement the StudentFee Interface.
+->
+import java.util.*;
+
+interface StudentFee{
+    double getFee() throws Exception;
+    
+}
+
+class Student implements StudentFee{
+    String name;
+    double fees;
+    
+    public Student(String name){
+        this.name = "xyz";
+        this.fees = 600.00;
+    }
+    
+    
+    public double getFee() throws Exception {
+		System.out.print("Enter the Fee : ");
+		Scanner sc = new Scanner(System.in);
+		double fee = sc.nextDouble();
+		sc.close();
+		if(fee < 0) {
+			throw new Exception("Invalid Fees!!!");
+		}
+		fees = fee;
+		return fees;
+	}
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	    try {
+		Student s1 = new Student("xyz");
+		System.out.println(s1.getFee());
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		}
+	    
+	}
+}
+
+
+
+61.	Create a Thread class to print following star (*) pattern on screen with 
+delay of 1 second between each * print. Number of lines in the pattern should be 
+passed to the constructor of Thread class.  
+*  
+* * * *  
+* * * * * * * * * * 
+Use this class in main method and ask user to enter number of lines to print.
+->
+import java.util.Scanner;
+class MyThread extends Thread{
+	int no;
+	MyThread(int n){
+		no = n;
+	}
+	@Override
+	public void run() { 
+		try {
+		for(int i=1;i<=no;i++) {
+			for(int j=1;j<=i;j++) {
+			System.out.print("*");
+			
+			}						 
+			System.out.println("");
+			Thread.sleep(1000);
+		}
+		}catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}                                     
+}
+
+
+public class q61 {
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("main started");
+		System.out.println("Enter no of lines : ");
+		Scanner sc = new Scanner(System.in);
+		MyThread th = new MyThread(sc.nextInt());           
+		th.start();  		
+		System.out.println("main finished"); 
+		sc.close();
+		
+	}
+
+}
+
+
+62.	Create a class that checks whether a given number is prime or not using  
+Runnable interface.
+->
+class CheckPrime implements Runnable{
+	int no ;
+	boolean flag;
+	CheckPrime(int n){
+		no = n;
+		flag = true;
+	}
+	public void run() {
+		for(int i=2;i<=no/2;i++) {
+			if((no%i) == 0){
+				flag = false;
+				System.out.println("Not Prime");
+				break;
+			}
+			
+		}
+		if(flag) {
+			System.out.println("Prime No");
+		}
+	}
+}
+
+public class Main{
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("Main Started....");
+		System.out.println("Enter No. :");
+		Scanner sc = new Scanner(System.in);
+		CheckPrime c1 = new CheckPrime(sc.nextInt());
+		Thread t1 = new Thread(c1);
+		t1.start();
+		try {
+			t1.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Main finished");
+		sc.close();
+
+	}
+
+}
+
+63.	Write a program to count how many times character ‘t’ occurs in a file.
+->
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Main{
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		File f = new File("D:\\Rahul\\java\\prac\\file1.txt");
+		if(!f.exists()){
+			f.createNewFile();
+			
+		}
+		FileWriter f1 = new FileWriter("D:\\Rahul\\java\\prac\\file1.txt");
+		String str = "how are you t and t are u there t ttt";
+		BufferedWriter b1 = new BufferedWriter(f1);
+		f1.write(str);
+		b1.flush();
+		b1.close();
+		FileReader r1 = new FileReader("D:\\Rahul\\java\\prac\\file1.txt");
+		int ch ;
+		int count = 0;
+		while((ch = r1.read()) != -1) {
+			if((char)ch == 't') {
+				count++;
+			}
+		}
+		System.out.println("Count : "+ count);
+		f1.close();
+	
+		
+	}
+
+}
+
+ 
+64.	Write a program to count no of words in a text file and average word size.
+->
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		try {
+			FileReader r = new FileReader("D:\\Rahul\\java\\prac\\file1.txt");
+			int ch = -1;
+			String s = "";
+			while((ch = r.read()) != -1) {
+				//System.out.print((char)ch);
+				s += (char)ch;
+			}
+			String[] s1 = s.split(" ");
+			
+		
+			System.out.println("No of words : "+s1.length);
+			 
+			int sum = 0;
+			for(String x : s1) {
+				sum += x.length();
+			}
+			int avg = sum/s1.length;
+			System.out.println("Average word size :"+avg);
+			r.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
+}
+
+65.	Write a program to count number of bytes in a image file(jpeg/png/gif).  
+Also find how much time it will take to upload the file on server if internet speed 
+is 256 bps(bits per second).
+->
+import java.awt.image.BufferedImage;
+	import java.io.ByteArrayInputStream;
+	import java.io.ByteArrayOutputStream;
+	import java.io.File;
+	import java.io.IOException;
+	import javax.imageio.ImageIO;
+	import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+	 
+	 
+	public class Main{
+		public static void main(String[] args) throws IOException{
+			String dirName="C:\\Users\\Admin\\OneDrive\\Pictures\\Screenshots";
+			ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+			BufferedImage img=ImageIO.read(new File(dirName,"adi.png"));
+			ImageIO.write(img, "jpg", baos);
+			baos.flush();
+	 
+			String base64String=Base64.encode(baos.toByteArray());
+			baos.close();
+	 
+			byte[] bytearray = Base64.decode(base64String);
+	 
+			BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
+			ImageIO.write(imag, "jpg", new File(dirName,"snap.jpg"));
+		}
+	}
+
+
+66.	Write a program to store your shopping details in a binary file(shopping.dat)
+with information itemName, price, quantity. (Use ObjectOutputStream to store Item 
+class object ).
+->
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Scanner;
+
+
+class Item implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	String itemName;
+	int price;
+	int quantity;
+	
+	public Item(String itemName, int price, int quantity) {
+		this.itemName = itemName;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	@Override
+	public String toString() {
+		return "{\nitemName : "+itemName+",\n"+" price : "+price+",\n"+" quantity : "+quantity+"\n}";
+	}
+}
+
+public class q66 {
+
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		
+		FileOutputStream f = new FileOutputStream("D:\\Rahul\\java\\prac\\file1.txt");
+		ObjectOutputStream o = new ObjectOutputStream(f);
+		
+		for(int i = 0; i < 3; i++) {
+			System.out.print("itemName : ");
+			String itemName = sc.next();
+			System.out.print("price : ");
+			int price = sc.nextInt();
+			System.out.print("quantity : ");
+			int quantity = sc.nextInt();
+			Item j = new Item(itemName,price,quantity);
+			o.writeObject(j);
+		}
+		o.close();
+		sc.close();
+	}
+
+}
+
+67.	Write a program to read data from shopping.dat file creted in above problem 
+and find total money spent on all shopping items. . (Use ObjectInputStream to read 
+Item class object).
+->
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
+public class Main{
+
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		// TODO Auto-generated method stub
+		FileInputStream f = new FileInputStream("D:\\Rahul\\java\\prac\\file1.txt");
+		ObjectInputStream o = new ObjectInputStream(f);
+		
+		ArrayList<Item> a = new ArrayList<>();
+		Object obj = null;
+	
+boolean flag = true;
+		while(flag) {
+			if(f.available() != 0) {
+				obj = (Item)o.readObject();
+				a.add((Item) obj);
+			}else {
+				flag = false;
+			}
+	    }
+		for(Item x : a) {
+			System.out.println(x);
+		}
+
+		o.close();
+}
+}

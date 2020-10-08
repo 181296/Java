@@ -1,0 +1,225 @@
+48. Create an Abstract class Processor with int member variable data  and method showData to display 
+data value. Create abstract method process() to define processing of member data. Create a class  
+Factorial using abstract class Processor  to calculate and print factorial of a number by overriding 
+the process method. b. Create a class Circle using abstract class Processor to calculate and print area 
+of a circle by overriding the process method.Ask user to enter choice (factorial or circle area).  
+Also ask data to work upon. Use Processor class reference to achieve this mechanism.
+->
+
+import java.util.Scanner;
+
+abstract class Processor{
+	
+		int data ;
+		
+		void showData(){
+		
+			System.out.println("Data : "+data);
+		}
+	
+		abstract double process(int n);
+}
+
+class Factorial extends Processor{
+		double process(int n){
+			double fact = 1;
+			for(int i=1;i<=n;i++){
+				fact*=i;
+			}
+			this.data = n;
+			return fact;
+		}
+}
+
+class Circle extends Processor{
+	double process(int n){
+		data = n;
+		return (22/7)*(n*n);
+	}
+}
+
+class Demo {
+	public static void main(String []args){
+		Scanner sc = new Scanner(System.in);
+		System.out.print("For Factorial press : 'f'\nFor Circle Area : 'a'\nEnter Choice : ");
+		char ch = sc.next().charAt(0);
+		switch(ch){
+			case 'f' : 
+				System.out.print("Enter the no. : ");
+				int n = sc.nextInt();
+				Processor p1 = new Factorial();
+				double n3 = p1.process(n);
+				System.out.println("Data : "+p1.data+"\nFactorial : "+n3);
+				break;
+			case 'a' : 
+				System.out.print("Enter the no. : ");
+				int n1 = sc.nextInt();
+				Processor p2 = new Circle();
+				double n4 = p2.process(n1);
+				System.out.println("Data : "+p2.data+"\nArea of Circle : "+n4);
+				break;
+			default:
+				System.out.println("Invalid Choice");
+				break;
+		}
+	}
+}
+
+49. Create Interface Taxable with members salesTax=7% and incomeTax=10.5%. create abstract method calcTax(). 
+a. Create class Employee(empId,name,salary) and implement Taxable to calculate incomeTax on yearly salary. 
+b. Create class Product(pid,price,quantity) and implement Taxable to calculate salesTax on unit price of product. 
+c. Create class for main method(Say XYZ), accept employee information and a 
+product information from user and print income tax and sales tax respectively.
+->
+import java.util.Scanner;
+
+interface Taxable{
+		 double salesTax=0.07;
+		 double incomeTax=0.105;
+		
+	   	 double calcTax();
+	}
+
+class Employee implements Taxable{
+	private int empId;
+	private String name;
+	private double salary;
+	
+	Employee(int empId, String name,double salary){
+		this.empId = empId;
+		this.name = name;
+		this.salary = salary;
+	}
+	
+	public double calcTax(){
+		return (double) salary*incomeTax;
+	}
+}
+
+class Product implements Taxable{
+	private int pid;
+	private double price;
+	private int quantity;
+	
+	Product(int pid, double price,int quantity){
+		this.pid = pid;
+		this.price = price;
+		this.quantity = quantity;
+	}
+	public double calcTax(){
+		return (double) salesTax*price*quantity;
+	}
+
+}
+
+
+class Demo{
+	public static void main(String []args){
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Employee Details:");
+		System.out.print("Employee Id : ");
+		int empId = sc.nextInt();
+		System.out.print("Employee Name : ");
+		String name = sc.next();
+		System.out.print("Employee Salary : ");
+		double salary = sc.nextDouble();
+		
+		Taxable e1 = new Employee(empId,name,salary);
+		
+		System.out.println("Enter Product Details:");
+		System.out.print("Product pid : ");
+		int pid = sc.nextInt();
+		System.out.print("Product Price : ");
+		double price = sc.nextDouble();
+		System.out.print("Product Quantity : ");
+		int quantity = sc.nextInt();
+		
+		Taxable p1 = new Product(pid,price,quantity);
+
+		System.out.println("Income Tax : "+e1.calcTax());
+		System.out.println("Sales Tax : "+p1.calcTax());
+	}
+}
+
+50. Explain the importance of toString() and equals() method of the Object class and override them on 
+ * class Employee(empId,name,salary).  a. Create class for main method(say XYZ),and accept five employees 
+ * information and store in an array. Also ensure if entered empId already exist or not (use equals method).  
+ * b. Display all employee info using toString method.
+ */
+
+package p51_60;
+
+import java.util.Scanner;
+
+class Employee {
+	private int empId;
+	private String  name;
+	private double salary;
+	Employee(int empId,String name,double salary){
+		this.empId = empId;
+		this.name = name;
+		this.salary = salary;
+	}
+	public int getEmpId() {
+		return empId;
+	}
+	public String getName() {
+		return name;
+	}
+	public double getSalary() {
+		return salary;
+	}
+	public boolean equals(Employee E1) {
+		if(E1.getEmpId() == this.empId ) {
+			return true;
+		}
+		else
+			return false;
+	}
+	public String toString() {
+		String str = "{ EmpId : "+this.getEmpId()+"\n Name : "+this.getName()+"\n Salary : "+this.getSalary()+"  },\n";
+		return str;
+	}
+}
+
+
+
+public class q50 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter Employee No : ");
+		int no = sc.nextInt();
+		
+		Employee []arr = new Employee[no];
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println("Enter "+(i+1)+"th Employee Details : ");
+			System.out.print("EmpId : ");
+			int emp = sc.nextInt();
+			System.out.print("Name : ");
+			String str = sc.next();
+			System.out.print("Salary : ");
+			double sal = sc.nextDouble();
+			arr[i] = new Employee(emp,str,sal);
+			for (int j = 0; j < i ; j++) {
+				if(arr[i].equals(arr[j])) {
+					i--;
+					System.out.println("Double Employee ID Entry!!! \nEnter Details again :\n");
+					break;
+				}
+			}
+		}
+		System.out.println("\n[ ");
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i].toString());
+			
+		}
+		System.out.println("  ]");
+		sc.close();
+		
+		
+
+	}
+
+}

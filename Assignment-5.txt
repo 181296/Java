@@ -1,0 +1,291 @@
+44.	Create three classes
+-	Faculty with two data members facultyId and salary and two methods, one intput() method for accepting facultyId as input and another 
+	printSalary() to print salary.
+-	FullTimeFaculty that inherits class Faculty with two data members’ basicSalary and allowance. Override input() method in this class that 
+	calls super class inut() method and accepts basicSalary and allowance as input. Salary should not be accepted as input but 
+	should be calculated using formula (basicSalary + allowance)
+-	PartTimeFaculty that inherits class Faculty with two data members’ workingHours, ratePerHour. Override input() method in this class that 
+	calls super class inut() method and accepts workingHours and ratePerHour as input. Salary should not be accepted as input but 
+	should be calculated using formula ( workingHour * ratePerHour )
+->
+import java.util.*;
+
+abstract class Faculty{
+    int facultyId, salary;
+    
+    public Faculty(){
+        facultyId = 0;
+        salary = 0;
+    }
+    
+    void input(){
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the facultyId : ");
+        facultyId = s.nextInt();
+    }
+    
+    abstract void printSalary();
+}
+
+class FullTimeFaculty extends Faculty{
+    int allowance, basicSalary;
+    
+    void input(){
+        super.input();
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the basicSalary : ");
+        basicSalary = s.nextInt();
+        System.out.println("Enter the allowance : ");
+        allowance = s.nextInt();
+    }
+    
+    void printSalary(){
+        salary = allowance + basicSalary;
+        System.out.println("Salary = "+salary);
+    }
+}
+
+class PartTimeFaculty extends Faculty{
+    int workingHours, ratePerHour;
+    
+    void input(){
+        super.input();
+        Scanner s = new Scanner(System.in);
+        System.out.println("Enter the Working Hours : ");
+        workingHours = s.nextInt();
+        System.out.println("Enter the Rate Per Hour : ");
+        ratePerHour = s.nextInt();
+    }
+    
+    void printSalary(){
+        salary = workingHours + ratePerHour;
+        System.out.println("Salary = "+salary);
+    }
+}
+
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        FullTimeFaculty f1 = new FullTimeFaculty();
+        f1.input();
+        f1.printSalary();
+        PartTimeFaculty f2 = new PartTimeFaculty();
+        f2.input();
+        f2.printSalary();
+        
+	}
+}
+
+
+
+45.	Create a class Student with two members : rollno and percentage. Create default and parameterized constructors. Create method show() to 
+	display information. Create another class CollegeStudent inherits Student class. Add a new member semester to it. Create default and 
+	parameterized constructors. Also override show() method that calls super class show() method and displays semester. Create another class 
+	SchoolStudent inherits Student class. Add a new member className(eg 12th ,10th etc.) to it. Create default and parameterized constructors. 
+	Also override show() method that calls super class show() method and displays className. Create a class( say Demo) with main method that 
+	carries out the operation of the project : -- has array to store objects of any class(Student,  CollegeStudent or SchoolStudent) 
+--create two CollegeStudent  and three SchoolStudent objects and store them inside the array 
+-- display all records from the array 
+-- search record on the basic of rollno and check given rollno is of SchoolStudent or of CollegeStudent. 
+--count how many students are having A grade, if for A grade percentage >75. 
+->
+import java.util.*;
+
+abstract class Student{
+    int rollno; 
+    double percentage;
+    
+    public Student(){
+        rollno = 0;
+        percentage = 0.0;
+    }
+    
+    public Student(int rollno, double percentage){
+        this.rollno = rollno;
+        this.percentage = percentage;
+    }
+    
+    abstract void show();
+}
+
+class CollageStudent extends Student{
+    int semester;
+    
+    public CollageStudent(){
+        super();
+        semester = 1;
+    }
+    
+    public CollageStudent(int rollno, double percentage, int semester){
+        super(rollno, percentage);
+        this.semester = semester;
+    }
+    
+    void show(){
+        System.out.println("\nSemester : "+semester);
+        System.out.println("RollNo : "+this.rollno);
+        System.out.println("Percentage : "+this.percentage);
+    }
+}
+
+class SchoolStudent extends Student{
+    String className;
+    
+    public SchoolStudent(){
+        super();
+        className = "10th";
+    }
+    
+    public SchoolStudent(int rollno, double percentage, String className){
+        super(rollno, percentage);
+        this.className = className;
+    }
+    
+    void show(){
+        System.out.println("\nClass : "+className);
+        System.out.println("RollNo : "+this.rollno);
+        System.out.println("Percentage : "+this.percentage);
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+        Student o[] = {new CollageStudent(23,76.56,2), new CollageStudent(40,66.56,6), new SchoolStudent(12,86.56,"10th"), new SchoolStudent(15,65.99,"12th"), new SchoolStudent(20,79.46,"12th")};
+	
+        for(Student S : o)
+            S.show();
+            
+        System.out.println("Enter RollNo : ");
+        int a = s.nextInt();
+        for(Student i : o){
+			if(i.rollno == a){
+				if(i instanceof CollegeStudent){
+						System.out.println("\nRoll No. : " + a + " is CollegeStudent");
+						flag = 1;
+				}
+				else if(i instanceof SchoolStudent){
+						System.out.println("\nRoll No. : " + a + " is School Student");
+						flag = 1;
+				}
+				else{
+						System.out.println("\nRoll No. : " + a + " is (only) Student");
+						flag = 1;
+				}
+			}
+			if(i.getPercentage() > 75){
+				count++;
+			}
+		}
+		if(flag == 0){
+			System.out.println("\nRoll No. : "+ a + " not Found !!!");
+		}
+		System.out.println("\n\nTotal No. Students having 'A' grade are : "+ count);
+}
+
+
+46.	Create a program to demonstrate the use of instanceof operator or secure reference down casting.
+->
+class Parent{
+	public int x;
+	
+	Parent(){
+		x = 1;
+	}
+	Parent(int x){
+		this.x = x;
+	}
+	
+	void show(){
+		System.out.println("Parent class X = "+x);	
+	}
+}
+
+class Child1 extends Parent{
+	public int y;
+	Child1(){
+		y = 2;
+	}
+	Child1(int y){
+		this.y = y;
+	}
+	
+	void show(){
+		System.out.println("1 Child class Y = "+y);
+	}
+}
+
+class Child2 extends Parent{
+	public int z;
+	Child2(){
+		z = 2;
+	}
+	Child2(int z){
+		this.z = z;
+	}
+	
+	void show(){
+		System.out.println("2 Child class Z = "+z);
+	}
+}
+class Demo{
+	public static void main(String []args){
+
+		Parent p1 = new Child1(8);  	// upcasting
+		p1.show();   			// 1 Child class Y = 8
+
+		Parent p2 = new Child2(10);
+		p2.show();  			// 2 Child class Z = 10
+
+		if(p1 instanceof Child1){
+			System.out.println("p1 is Instance of Child 1");  //  p1 is Instance of Child 1
+		}
+		else if(p1 instanceof Child2){
+			System.out.println("p1 Instance of Child 2");
+		}
+		else if(p1 instanceof Parent){
+			System.out.println("p1 Instance of Parent");
+		}
+		
+		Child2 p3 = (Child2) p2;  //downcating
+		
+		if(p3 instanceof Child2){
+			 
+			System.out.println("p3 Instance of Child 2");   // p3 Instance of Child 2
+		}
+		p3.show();    // 2 Child class Z = 10
+	}
+}
+
+47.	Create a program to demonstrate constructor chaining.
+->
+public class Test 
+{ 
+	public Test() 
+	{ 
+		System.out.printf("1"); 
+		new Test(10); 
+		System.out.printf("5"); 
+	} 
+	public Test(int temp) 
+	{ 
+		System.out.printf("2"); 
+		new Test(10, 20); 
+		System.out.printf("4"); 
+	} 
+	public Test(int data, int temp) 
+	{ 
+		System.out.printf("3"); 
+		
+	} 
+	
+	public static void main(String[] args) 
+	{ 
+		Test obj = new Test(); 
+		
+	} 
+	
+} 
